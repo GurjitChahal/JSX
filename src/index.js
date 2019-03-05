@@ -13,18 +13,27 @@ componentDidMount(){
         (err) =>  this.setState({errorMessage: err.message})
     );
 }
+
+renderContent(){
+    if(this.state.errorMessage && !this.state.lat){
+        return <div>Error: {this.state.errorMessage}</div>
+    }
+      if(!this.state.errorMessage && this.state.lat){
+          return <SeasonDisplay lat = {this.state.lat} />
+      }
+     
+          return <Loading message = "Please accept location request"/>;
+      
+}
     //requirement of react
 render() {
     
-  if(this.state.errorMessage && !this.state.lat){
-      return <div>Error: {this.state.errorMessage}</div>
-  }
-    if(!this.state.errorMessage && this.state.lat){
-        return <SeasonDisplay lat = {this.state.lat} />
-    }
-   
-        return <Loading message = "Please accept location request"/>;
-    
+  return (
+      <div className = "border red">
+          {this.renderContent()}
+      </div>
+      
+  )
     
 }
 
